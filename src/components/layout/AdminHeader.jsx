@@ -3,7 +3,7 @@ import { FaCaretDown, FaSignOutAlt } from "react-icons/fa";
 import { useAdminAuth } from "../../context/AdminAuthContext";
 import LetterAvatar from "../common/LetterAvatar";
 
-const FRONTEND_LOGIN_URL = "http://localhost:5173/login";
+const FRONTEND_LOGIN_URL = `${import.meta.env.VITE_FRONTEND_URL || "http://localhost:5173"}/login`;
 
 export default function AdminHeader({ title }) {
   const { admin, logout } = useAdminAuth();
