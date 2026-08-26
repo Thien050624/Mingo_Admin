@@ -26,14 +26,16 @@ export const setPostHidden = (postId, hidden) =>
 export const deletePost = (postId) =>
   request(`/admin/posts/${postId}`, { method: "DELETE", token: token() });
 
+export const listForumRooms = () => request("/forum/rooms", { token: token() });
+
 export const listForumMessages = (page = 0, size = 30) =>
   request(`/admin/forum/messages?page=${page}&size=${size}`, { token: token() });
 
 export const deleteForumMessage = (messageId) =>
   request(`/admin/forum/messages/${messageId}`, { method: "DELETE", token: token() });
 
-export const clearForumMessages = () =>
-  request(`/admin/forum/messages`, { method: "DELETE", token: token() });
+export const clearForumRoomMessages = (roomId) =>
+  request(`/admin/forum/rooms/${roomId}/messages`, { method: "DELETE", token: token() });
 
 export const setForumMessageHidden = (messageId, hidden) =>
   request(`/admin/forum/messages/${messageId}/hidden`, { method: "PATCH", body: { hidden }, token: token() });

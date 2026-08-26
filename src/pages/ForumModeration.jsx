@@ -16,8 +16,18 @@ export default function ForumModeration() {
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [clearing, setClearing] = useState(false);
   const [reloadTick, setReloadTick] = useState(0);
+
+  const [rooms, setRooms] = useState([]);
+  const [clearRoomId, setClearRoomId] = useState("");
+  const [clearing, setClearing] = useState(false);
+
+  useEffect(() => {
+    adminApi
+      .listForumRooms()
+      .then(setRooms)
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -46,23 +56,23 @@ export default function ForumModeration() {
     }
   };
 
-  const clearAllMessages = async () => {
+  const clearRoomMessages = async () => {
+    if (!clearRoomId) return;
+    const room = rooms.find((r) => r.id === clearRoomId);
     if (
       !window.confirm(
-        "Xoá vĩnh viễn TOÀN BỘ tin nhắn diễn đàn của mọi người dùng? Hành động này không thể hoàn tác."
+        `Xoá vĩnh viễn TOÀN BỘ tin nhắn trong phòng "${room?.name || ""}"? Hành động này không thể hoàn tác.`
       )
     ) {
       return;
     }
     setClearing(true);
     try {
-      await adminApi.clearForumMessages();
-      setMessages([]);
-      setTotalElements(0);
-      setTotalPages(0);
-      setPage(0);
+      await adminApi.clearForumRoomMessages(clearRoomId);
+      setMessages((prev) => prev.filter((m) => m.roomId !== clearRoomId));
+      setReloadTick((t) => t + 1);
     } catch (err) {
-      window.alert(err.message || "Không thể dọn dẹp tin nhắn diễn đàn");
+      window.alert(err.message || "Không thể dọn dẹp tin nhắn trong phòng này");
     } finally {
       setClearing(false);
     }
@@ -81,24 +91,37 @@ export default function ForumModeration() {
     <>
       <AdminHeader title="Diễn đàn" />
       <div className="p-4 sm:p-6 flex flex-col gap-4">
-        <div className="bg-zm-card rounded-2xl border border-zm-border p-4 flex items-center gap-3">
+        <div className="bg-zm-card rounded-2xl border border-zm-border p-4 flex flex-col sm:flex-row sm:items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-zm-blue to-zm-blue-light flex items-center justify-center text-white glow-violet shrink-0">
             <FaComments size={16} aria-hidden="true" />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="font-semibold text-sm">Phòng chat chung Mingo</p>
-            <p className="text-xs text-zm-muted">
-              {totalElements} tin nhắn bị báo cáo cần xử lý
-            </p>
+            <p className="font-semibold text-sm">Tin nhắn bị báo cáo — mọi phòng</p>
+            <p className="text-xs text-zm-muted">{totalElements} tin nhắn cần xử lý</p>
           </div>
-          <button
-            type="button"
-            onClick={clearAllMessages}
-            disabled={clearing}
-            className="shrink-0 inline-flex items-center gap-1.5 text-xs font-semibold px-3 h-11 rounded-lg border border-red-500/40 text-red-400 hover:bg-red-500/10 disabled:opacity-50 transition-colors"
-          >
-            <FaBroom size={11} aria-hidden="true" /> {clearing ? "Đang dọn dẹp..." : "Dọn dẹp toàn bộ"}
-          </button>
+          <div className="flex items-center gap-2 shrink-0">
+            <select
+              value={clearRoomId}
+              onChange={(e) => setClearRoomId(e.target.value)}
+              aria-label="Chọn phòng để dọn dẹp"
+              className="min-h-11 rounded-lg border border-zm-border bg-zm-bg px-3 text-sm focus:outline-none focus:ring-2 focus:ring-zm-blue/50"
+            >
+              <option value="">Chọn phòng để dọn dẹp...</option>
+              {rooms.map((r) => (
+                <option key={r.id} value={r.id}>
+                  {r.name}
+                </option>
+              ))}
+            </select>
+            <button
+              type="button"
+              onClick={clearRoomMessages}
+              disabled={clearing || !clearRoomId}
+              className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 min-h-11 rounded-lg border border-red-500/40 text-red-400 hover:bg-red-500/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              <FaBroom size={11} aria-hidden="true" /> {clearing ? "Đang dọn dẹp..." : "Dọn dẹp phòng"}
+            </button>
+          </div>
         </div>
 
         {error && <ErrorBanner onRetry={() => setReloadTick((t) => t + 1)} />}
@@ -114,6 +137,9 @@ export default function ForumModeration() {
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2 flex-wrap">
                     <p className="font-semibold text-sm">{m.author.name}</p>
+                    <span className="text-[11px] font-semibold text-zm-blue-light bg-zm-blue/10 px-2 py-0.5 rounded-full truncate max-w-[10rem]">
+                      {m.roomName}
+                    </span>
                     <span className="text-xs text-zm-muted">{formatRelativeTime(m.createdAt)}</span>
                     {m.reports > 0 && (
                       <span className="flex items-center gap-1 text-[11px] font-semibold text-zm-orange bg-zm-orange/15 px-2 py-0.5 rounded-full">

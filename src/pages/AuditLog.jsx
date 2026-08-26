@@ -16,7 +16,7 @@ const ACTION_LABELS = {
   UNHIDE_POST: "Hiện bài viết",
   DELETE_POST: "Xoá bài viết",
   DELETE_FORUM_MESSAGE: "Xoá tin nhắn diễn đàn",
-  CLEAR_FORUM_MESSAGES: "Dọn dẹp toàn bộ tin nhắn diễn đàn",
+  CLEAR_FORUM_MESSAGES: "Dọn dẹp tin nhắn trong phòng",
   HIDE_FORUM_MESSAGE: "Ẩn tin nhắn diễn đàn",
   UNHIDE_FORUM_MESSAGE: "Hiện tin nhắn diễn đàn",
   DELETE_CHAT_MESSAGE: "Xoá tin nhắn chat",
@@ -26,6 +26,7 @@ const TARGET_TYPE_LABELS = {
   USER: "Người dùng",
   POST: "Bài viết",
   FORUM_MESSAGE: "Tin nhắn diễn đàn",
+  FORUM_ROOM: "Phòng diễn đàn",
   CHAT_MESSAGE: "Tin nhắn chat",
 };
 
