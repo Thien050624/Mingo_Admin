@@ -1,10 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
-import { FaChartPie, FaUsers, FaFileAlt, FaComments, FaCommentDots, FaHistory } from "react-icons/fa";
+import { FaChartPie, FaUsers, FaFileAlt, FaComments, FaCommentDots, FaFlag, FaHistory } from "react-icons/fa";
 
 const items = [
   { to: "/", label: "Tổng quan", icon: FaChartPie },
   { to: "/users", label: "Người dùng", icon: FaUsers },
   { to: "/posts", label: "Bài viết", icon: FaFileAlt },
+  { to: "/comments", label: "Bình luận", icon: FaFlag },
   { to: "/forum", label: "Diễn đàn", icon: FaComments },
   { to: "/chat", label: "Tin nhắn", icon: FaCommentDots },
   { to: "/audit-log", label: "Nhật ký", icon: FaHistory },

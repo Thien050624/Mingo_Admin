@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import Users from "./pages/Users";
 import Posts from "./pages/Posts";
 import ForumModeration from "./pages/ForumModeration";
+import CommentModeration from "./pages/CommentModeration";
 import ChatModeration from "./pages/ChatModeration";
 import AuditLog from "./pages/AuditLog";
 import Handoff from "./pages/Handoff";
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="/users" element={<Users />} />
         <Route path="/posts" element={<Posts />} />
         <Route path="/forum" element={<ForumModeration />} />
+        <Route path="/comments" element={<CommentModeration />} />
         <Route path="/chat" element={<ChatModeration />} />
         <Route path="/audit-log" element={<AuditLog />} />
       </Route>

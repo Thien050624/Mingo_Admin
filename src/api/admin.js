@@ -40,6 +40,15 @@ export const clearForumRoomMessages = (roomId) =>
 export const setForumMessageHidden = (messageId, hidden) =>
   request(`/admin/forum/messages/${messageId}/hidden`, { method: "PATCH", body: { hidden }, token: token() });
 
+export const listCommentReports = (page = 0, size = 30) =>
+  request(`/admin/comments?page=${page}&size=${size}`, { token: token() });
+
+export const setCommentHidden = (commentId, hidden) =>
+  request(`/admin/comments/${commentId}/hidden`, { method: "PATCH", body: { hidden }, token: token() });
+
+export const deleteComment = (commentId) =>
+  request(`/admin/comments/${commentId}`, { method: "DELETE", token: token() });
+
 export const listChatMessageReports = (page = 0, size = 30) =>
   request(`/admin/chat/messages?page=${page}&size=${size}`, { token: token() });
 

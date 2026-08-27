@@ -20,6 +20,9 @@ const ACTION_LABELS = {
   HIDE_FORUM_MESSAGE: "Ẩn tin nhắn diễn đàn",
   UNHIDE_FORUM_MESSAGE: "Hiện tin nhắn diễn đàn",
   DELETE_CHAT_MESSAGE: "Xoá tin nhắn chat",
+  HIDE_COMMENT: "Ẩn bình luận",
+  UNHIDE_COMMENT: "Hiện bình luận",
+  DELETE_COMMENT: "Xoá bình luận",
 };
 
 const TARGET_TYPE_LABELS = {
@@ -28,6 +31,7 @@ const TARGET_TYPE_LABELS = {
   FORUM_MESSAGE: "Tin nhắn diễn đàn",
   FORUM_ROOM: "Phòng diễn đàn",
   CHAT_MESSAGE: "Tin nhắn chat",
+  COMMENT: "Bình luận",
 };
 
 const ACTION_COLORS = {
@@ -37,11 +41,14 @@ const ACTION_COLORS = {
   DELETE_FORUM_MESSAGE: "bg-red-500/15 text-red-400",
   CLEAR_FORUM_MESSAGES: "bg-red-500/15 text-red-400",
   DELETE_CHAT_MESSAGE: "bg-red-500/15 text-red-400",
+  DELETE_COMMENT: "bg-red-500/15 text-red-400",
   HIDE_POST: "bg-zm-orange/15 text-zm-orange",
   HIDE_FORUM_MESSAGE: "bg-zm-orange/15 text-zm-orange",
+  HIDE_COMMENT: "bg-zm-orange/15 text-zm-orange",
   UNBAN_USER: "bg-emerald-500/15 text-emerald-400",
   UNHIDE_POST: "bg-emerald-500/15 text-emerald-400",
   UNHIDE_FORUM_MESSAGE: "bg-emerald-500/15 text-emerald-400",
+  UNHIDE_COMMENT: "bg-emerald-500/15 text-emerald-400",
 };
 
 export default function AuditLog() {
