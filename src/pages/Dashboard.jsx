@@ -4,6 +4,7 @@ import * as adminApi from "../api/admin";
 import AdminHeader from "../components/layout/AdminHeader";
 import Avatar from "../components/common/Avatar";
 import ErrorBanner from "../components/common/ErrorBanner";
+import LoadingIndicator from "../components/common/LoadingIndicator";
 import { formatDate } from "../utils/time";
 
 const months = ["T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12"];
@@ -37,7 +38,9 @@ export default function Dashboard() {
     return (
       <>
         <AdminHeader title="Tổng quan" />
-        <div className="p-6 text-sm text-zm-muted">Đang tải...</div>
+        <div className="p-10">
+          <LoadingIndicator />
+        </div>
       </>
     );
   }

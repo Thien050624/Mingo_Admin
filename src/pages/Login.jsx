@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import { useAdminAuth } from "../context/AdminAuthContext";
+import useSlowLoad from "../hooks/useSlowLoad";
 
 export default function Login() {
   const { login, admin } = useAdminAuth();
@@ -10,6 +11,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const submitSlow = useSlowLoad(submitting);
 
   if (admin) {
     return <Navigate to="/" replace />;
@@ -74,7 +76,11 @@ export default function Login() {
             disabled={submitting}
             className="bg-gradient-to-r from-zm-blue to-zm-blue-light disabled:opacity-60 hover:opacity-90 text-white font-bold rounded-lg min-h-11 text-sm mt-2 transition-opacity"
           >
-            {submitting ? "Đang đăng nhập..." : "Đăng nhập"}
+            {submitting
+              ? submitSlow
+                ? "Máy chủ đang khởi động, vui lòng đợi thêm ít giây..."
+                : "Đang đăng nhập..."
+              : "Đăng nhập"}
           </button>
         </form>
       </div>
