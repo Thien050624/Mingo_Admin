@@ -48,7 +48,7 @@ export function AdminAuthProvider({ children }) {
     return () => window.removeEventListener(SESSION_EXPIRED_EVENT, onSessionExpired);
   }, []);
 
-  const loginWithTokens = async (accessToken, refreshToken) => {
+  const applyTokens = async (accessToken, refreshToken) => {
     localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
     localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
     const profile = await adminApi.getMe();
@@ -62,6 +62,11 @@ export function AdminAuthProvider({ children }) {
     return mapped;
   };
 
+  const login = async (email, password) => {
+    const { accessToken, refreshToken } = await adminApi.login(email, password);
+    return applyTokens(accessToken, refreshToken);
+  };
+
   const logout = () => {
     localStorage.removeItem(ACCESS_TOKEN_KEY);
     localStorage.removeItem(REFRESH_TOKEN_KEY);
@@ -69,7 +74,7 @@ export function AdminAuthProvider({ children }) {
   };
 
   return (
-    <AdminAuthContext.Provider value={{ admin, loading, loginWithTokens, logout }}>
+    <AdminAuthContext.Provider value={{ admin, loading, login, logout }}>
       {children}
     </AdminAuthContext.Provider>
   );

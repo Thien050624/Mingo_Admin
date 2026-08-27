@@ -8,12 +8,12 @@ import ForumModeration from "./pages/ForumModeration";
 import CommentModeration from "./pages/CommentModeration";
 import ChatModeration from "./pages/ChatModeration";
 import AuditLog from "./pages/AuditLog";
-import Handoff from "./pages/Handoff";
+import Login from "./pages/Login";
 
 export default function App() {
   return (
     <Routes>
-      <Route path="/handoff" element={<Handoff />} />
+      <Route path="/login" element={<Login />} />
       <Route
         element={
           <RequireAdmin>

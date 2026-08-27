@@ -1,17 +1,17 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FaCaretDown, FaSignOutAlt } from "react-icons/fa";
 import { useAdminAuth } from "../../context/AdminAuthContext";
 import LetterAvatar from "../common/LetterAvatar";
 
-const FRONTEND_LOGIN_URL = `${(import.meta.env.VITE_FRONTEND_URL || "http://localhost:5173").replace(/\/$/, "")}/login`;
-
 export default function AdminHeader({ title }) {
   const { admin, logout } = useAdminAuth();
   const [showMenu, setShowMenu] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
-    window.location.href = FRONTEND_LOGIN_URL;
+    navigate("/login", { replace: true });
   };
 
   return (

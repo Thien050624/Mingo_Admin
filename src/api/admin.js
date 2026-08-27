@@ -4,6 +4,9 @@ const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
 const token = () => localStorage.getItem(ACCESS_TOKEN_KEY);
 
+export const login = (email, password) =>
+  request("/auth/login", { method: "POST", body: { email, password } });
+
 export const getMe = () => request("/users/me", { token: token() });
 
 export const getStats = () => request("/admin/stats", { token: token() });
