@@ -12,6 +12,8 @@ const ACTION_LABELS = {
   BAN_USER: "Khoá tài khoản",
   UNBAN_USER: "Mở khoá tài khoản",
   DELETE_USER: "Xoá tài khoản",
+  GRANT_ADMIN: "Cấp quyền Admin",
+  REVOKE_ADMIN: "Thu hồi quyền Admin",
   HIDE_POST: "Ẩn bài viết",
   UNHIDE_POST: "Hiện bài viết",
   DELETE_POST: "Xoá bài viết",
@@ -37,6 +39,8 @@ const TARGET_TYPE_LABELS = {
 const ACTION_COLORS = {
   BAN_USER: "bg-red-500/15 text-red-400",
   DELETE_USER: "bg-red-500/15 text-red-400",
+  REVOKE_ADMIN: "bg-red-500/15 text-red-400",
+  GRANT_ADMIN: "bg-zm-blue/15 text-zm-blue-light",
   DELETE_POST: "bg-red-500/15 text-red-400",
   DELETE_FORUM_MESSAGE: "bg-red-500/15 text-red-400",
   CLEAR_FORUM_MESSAGES: "bg-red-500/15 text-red-400",

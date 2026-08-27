@@ -8,11 +8,17 @@ export const getMe = () => request("/users/me", { token: token() });
 
 export const getStats = () => request("/admin/stats", { token: token() });
 
-export const listUsers = (query = "", page = 0, size = 20) =>
-  request(`/admin/users?query=${encodeURIComponent(query)}&page=${page}&size=${size}`, { token: token() });
+export const listUsers = (query = "", page = 0, size = 20, role = "") =>
+  request(
+    `/admin/users?query=${encodeURIComponent(query)}&page=${page}&size=${size}${role ? `&role=${role}` : ""}`,
+    { token: token() }
+  );
 
 export const setUserBanned = (userId, banned) =>
   request(`/admin/users/${userId}/status`, { method: "PATCH", body: { banned }, token: token() });
+
+export const setUserRole = (userId, role) =>
+  request(`/admin/users/${userId}/role`, { method: "PATCH", body: { role }, token: token() });
 
 export const deleteUser = (userId) =>
   request(`/admin/users/${userId}`, { method: "DELETE", token: token() });

@@ -111,8 +111,17 @@ export default function Posts() {
                     )}
                   </div>
                   <p className="text-sm mt-1.5">{p.content}</p>
-                  {p.image && (
-                    <img src={p.image} alt="" className="w-full max-w-xs rounded-xl mt-2.5 border border-zm-border" />
+                  {p.images && p.images.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mt-2.5">
+                      {p.images.map((src, i) => (
+                        <img
+                          key={i}
+                          src={src}
+                          alt=""
+                          className="w-24 h-24 object-cover rounded-xl border border-zm-border"
+                        />
+                      ))}
+                    </div>
                   )}
                   <div className="flex items-center gap-4 mt-3 text-xs text-zm-muted">
                     <span className="flex items-center gap-1.5">
